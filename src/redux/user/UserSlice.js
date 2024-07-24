@@ -13,16 +13,13 @@ export const fetchLogin = createAsyncThunk(
   "user/fetchLogin",
   async ({ email, password, rememberMe }, { rejectWithValue }) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_import.meta.env.VITE_BASE_URL}login/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}login/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
       if (!response.ok) {
         const errorText = await response.text();
