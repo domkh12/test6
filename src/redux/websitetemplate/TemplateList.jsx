@@ -15,6 +15,9 @@ const TemplateList = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const navigate = useNavigate();
 
+  // console.log("template",templates)
+  console.log("URL", import.meta.env.VITE_BASE_URL);
+
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchTemplates());
@@ -43,6 +46,7 @@ const TemplateList = () => {
       ? templates
       : templates.filter((template) => template.name === activeFilter);
 
+      // console.log("filteredTemplates",filteredTemplates)
   // const handlePreviewClick = (templateId) => {
   //   const userId = 2; // Replace with actual user ID
   //   dispatch(selectTemplate({ userId, templateId })).then((action) => {

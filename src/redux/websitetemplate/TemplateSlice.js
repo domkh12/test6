@@ -15,6 +15,7 @@ export const fetchTemplates = createAsyncThunk(
         },
       }
     );
+    console.log("response.data", response.data);
     return response.data;
   }
 );
