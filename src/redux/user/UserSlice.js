@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { BASE_URL } from "../feature/api";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
@@ -14,13 +13,16 @@ export const fetchLogin = createAsyncThunk(
   "user/fetchLogin",
   async ({ email, password, rememberMe }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}login/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_import.meta.env.VITE_BASE_URL}login/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -50,7 +52,7 @@ export const fetchProfile = createAsyncThunk(
       return rejectWithValue("No access token found");
     }
     try {
-      const response = await fetch(`${BASE_URL}profile/`, {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}profile/`, {
         headers: {
           Authorization: `Bearer ${accessToken}`, // Use accessToken from state
         },
@@ -90,7 +92,7 @@ export const updateProfile = createAsyncThunk(
     }
 
     try {
-      const response = await fetch(`${BASE_URL}profile/`, {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}profile/`, {
         method: "PUT",
         headers,
         body,

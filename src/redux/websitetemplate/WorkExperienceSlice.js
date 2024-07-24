@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { BASE_URL } from "../feature/api";
 
 // Helper function to get the token from localStorage
 const getToken = () => localStorage.getItem("access");
@@ -9,11 +8,14 @@ export const fetchWorkExperiences = createAsyncThunk(
   "workExperiences/fetchWorkExperiences",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}work-experiences/`, {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}work-experiences/`,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       if (!error.response) {

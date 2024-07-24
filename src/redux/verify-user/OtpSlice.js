@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { BASE_URL } from "../feature/api";
 
 const initialState = {
   isVerified: false,
@@ -11,13 +10,16 @@ export const verifyOtp = createAsyncThunk(
   "otp/verifyOtp",
   async ({ email, otp_code }) => {
     try {
-      const response = await fetch(`${BASE_URL}verify-otp/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, otp_code }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}verify-otp/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, otp_code }),
+        }
+      );
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -37,13 +39,16 @@ export const resendOtp = createAsyncThunk(
   "otp/resendOtp",
   async ({ email }) => {
     try {
-      const response = await fetch(`${BASE_URL}resend-otp/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}resend-otp/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
 
       if (!response.ok) {
         const errorText = await response.text();

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { BASE_URL } from "../feature/api";
 
 // Helper function to get the token from localStorage
 const getToken = () => localStorage.getItem("access");
@@ -8,11 +7,14 @@ const getToken = () => localStorage.getItem("access");
 export const fetchTemplates = createAsyncThunk(
   "templates/fetchTemplates",
   async () => {
-    const response = await axios.get(`${BASE_URL}templates/`, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
+    const response = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}templates/`,
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      }
+    );
     return response.data;
   }
 );
@@ -22,7 +24,7 @@ export const fetchTemplateData = createAsyncThunk(
   async (templateId, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${BASE_URL}template-portfolios/${templateId}/`,
+        `${import.meta.env.VITE_BASE_URL}template-portfolios/${templateId}/`,
         {
           headers: {
             Authorization: `Bearer ${getToken()}`,
@@ -45,7 +47,7 @@ export const selectTemplate = createAsyncThunk(
   async ({ userId, templateId }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${BASE_URL}select-templates/`,
+        `${import.meta.env.VITE_BASE_URL}select-templates/`,
         {
           user: userId,
           template: templateId,

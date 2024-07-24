@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { BASE_URL } from "../feature/api";
 
 const initialState = {
   user: null,
@@ -19,13 +18,16 @@ export const fetchRegister = createAsyncThunk(
       });
       console.log("Request payload:", body);
 
-      const response = await fetch(`${BASE_URL}register/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}register/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body,
+        }
+      );
 
       console.log("Response status:", response.status);
 
